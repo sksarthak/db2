@@ -1,0 +1,21 @@
+-- SeeQuestion 
+/*
+https://hackerrank-challenge-pdfs.s3.amazonaws.com/12887-what-type-of-triangle-English?AWSAccessKeyId=AKIAJ4WZFDFQTZRGO3QA&Expires=1593965524&Signature=FXJ8vMYm2ED04c9sKgKa1znmEB0%3D&response-content-disposition=inline%3B%20filename%3Dwhat-type-of-triangle-English.pdf&response-content-type=application%2Fpdf
+*/
+
+alter table triangles
+add category varchar(20);
+
+update triangles
+set category='Not A Triangle' where max(a,b,c)>=(a+b+c-(max(a,b,c)+min(a,b,c)))+min(a,b,c);
+
+update triangles
+set category='Equilateral' where (a=b and b=c) and category is null;
+
+update triangles
+set category='Isosceles' where (a=b or b=c or c=a) and category is null;
+
+update triangles
+set category='Scalene' where category is null;
+
+select category from triangles;
